@@ -1,8 +1,8 @@
 <?php
 class Block extends DataObject {
-    
+
 	// private static $singular_name = 'Block';
-	// private static $plural_name = 'Blocks';	
+	// private static $plural_name = 'Blocks';
 	private static $first_write = false;
 
 	//public static $default_sort = 'SortOrder';
@@ -21,7 +21,7 @@ class Block extends DataObject {
 		'Images' => 'Image',
 		'Files' => 'File'
     );
-	
+
 	private static $many_many_extraFields = array(
 		'Images' => array('SortOrder' => 'Int'),
 		'Files' => array('SortOrder' => 'Int')
@@ -253,7 +253,7 @@ class Block extends DataObject {
 				}
 
 				if ($existingTrans) {
-					DB::query('UPDATE "BlockTranslation" SET "Title"=\''.$trans['Title'].'\', "Content"=\''.$trans['Content'].'\' WHERE "ID" = '.$existingTrans->ID.';');
+					DB::query('UPDATE "BlockTranslation" SET "Title"=\''.$trans['Title'].'\', "Content"=\''.pg_escape_string($trans['Content']).'\' WHERE "ID" = '.$existingTrans->ID.';');
 				} else {
 					$newTrans = BlockTranslation::create();
 					$newTrans->Title = $trans['Title'];
